@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
 
     private Vector3 direction;
     public float gravity = -9.8f;
-    public float strength = 5f;
+    public float strengthUp = 5f;
+    public float strengthDown = 10f;
 
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -21,14 +22,30 @@ public class Player : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
-            direction = Vector3.up * strength;
+            direction = Vector3.up * strengthUp;
         }
 
+        //Skill drop can either act as push downwards, would need to use direction.y to avoid spamming it being slower than natural falling
+        //Or increasing gravity while it is held
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift) || Input.GetMouseButtonDown(1)) {
+            direction = Vector3.down * strengthDown;
+        }
+        /*
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetMouseButton(1)) {
+            gravity = -9.8f * 3f;
+        } else {
+            gravity = -9.8f;
+        }
+        */
+
+
+        //Touch control option for quick drop is to switch to checking if touch is in top half or bottom half of screen
+        //Touch controls are not necessary though
         if (Input.touchCount > 0) {
             Touch touch = Input.GetTouch(0);
 
             if (touch.phase == TouchPhase.Began) {
-                direction = Vector3.up * strength;
+                direction = Vector3.up * strengthUp;
             }
         }
 

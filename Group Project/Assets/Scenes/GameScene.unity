@@ -617,7 +617,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b61a2d57ce4604847b9e0cc84e1a7c07, type: 3}
   - {fileID: 21300000, guid: 1905b817c520b914c9d3fbe3d95c4a9a, type: 3}
   gravity: -9.8
-  strength: 5
+  strengthUp: 5
+  strengthDown: 10
 --- !u!1 &1031703838
 GameObject:
   m_ObjectHideFlags: 0
