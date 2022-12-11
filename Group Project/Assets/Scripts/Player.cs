@@ -6,6 +6,11 @@ public class Player : MonoBehaviour
     public Sprite[] sprites;
     private int spriteIndex;
 
+    public AudioSource scoreSound;
+    public AudioSource gameOverSound;
+    public AudioSource flapSound;
+    public AudioSource dropSound;
+
     private Vector3 direction;
     public float gravity = -9.8f;
     public float strengthUp = 5f;
@@ -22,12 +27,14 @@ public class Player : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
+            flapSound.Play();
             direction = Vector3.up * strengthUp;
         }
 
         //Skill drop can either act as push downwards, would need to use direction.y to avoid spamming it being slower than natural falling
         //Or increasing gravity while it is held
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift) || Input.GetMouseButtonDown(1)) {
+            dropSound.Play();
             direction = Vector3.down * strengthDown;
         }
         /*
@@ -72,8 +79,10 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "Obstacle" ) {
+            gameOverSound.Play();
             FindObjectOfType<GameManager>().GameOver();
         } else if (other.gameObject.tag == "Scoring") {
+            scoreSound.Play();
             FindObjectOfType<GameManager>().IncreaseScore();
         }
     }

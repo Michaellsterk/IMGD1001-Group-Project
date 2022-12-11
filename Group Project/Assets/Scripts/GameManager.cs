@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private int score;
     private int highscore;
     public Text highscoreText;
+    public AudioSource startSound;
 
     private void Awake() {
         Application.targetFrameRate = 60;
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void Play() {
+        startSound.Play();
         score = 0;
         scoreText.text = score.ToString();
 
@@ -51,9 +53,9 @@ public class GameManager : MonoBehaviour
             highscore = score;
             highscoreText.text=highscore.ToString();
         }
+        playButton.SetActive(true);
         highscoreBackground.SetActive(true);
         gameOver.SetActive(true);
-        playButton.SetActive(true);
         highscoreText.enabled = true;
         Pause();
     }
